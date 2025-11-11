@@ -1,13 +1,18 @@
-import { useState } from 'react'
-
-
+import Navbar from './component/Navbar'
+import Form from './component/Form'
 
 function App() {
-  
-
   return (
     <>
-      <h2>Hello World</h2>
+      <header>
+        <Navbar />
+      </header>
+
+      <main className="container mt-4">
+        <div className="mx-auto col-6">
+          <Form />
+        </div>
+      </main>
     </>
   )
 }
