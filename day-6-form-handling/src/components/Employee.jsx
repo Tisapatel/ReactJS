@@ -2,36 +2,40 @@ import React, { useState } from 'react'
 
 function Employee() {
 
-    const [emp,setEmp] = useState({});
-    const [list,setList] = useState([]);
+    const [emp, setEmp] = useState({});
+    const [list, setList] = useState([]);
 
-    const handleInput = (e)=>{
-        const {name,value} = e.target;
-        setEmp({...emp,[name]:value});
+    const handleInput = (e) => {
+        const { name, value } = e.target;
+        setEmp({ ...emp, [name]: value });
     }
 
-    const handleSubmit=(e)=>{
+    const handleSubmit = (e) => {
         e.preventDefault();
 
-        setList([...list,{...emp,id:Date.now()}]);
-        setEmp({});      
+        setList([...list, { ...emp, id: Date.now() }]);
+        setEmp({});
 
     }
- 
+    const handleDelete = (id) => {
+        setList(list.filter(item => item.id !== id));
+    };
+
+
 
     console.log(list);
-    
+
 
     return (
         <>
-            <div className='container'>
+            <div className='container mt-5'>
                 <div className='row justify-content-center'>
                     <div className='col-md-6'>
                         <form onSubmit={handleSubmit} method='post'>
                             <h2>Employee Data</h2>
                             <div className="mb-3">
                                 <label htmlFor="employeeName" className="form-label">Employee Name</label>
-                                <input type="text" onChange={handleInput} name='ename' value={emp.name || ""} className="form-control" id="employeeName" aria-describedby="emailHelp" />
+                                <input type="text" onChange={handleInput} name='ename' value={emp.ename || ""} className="form-control" id="employeeName" aria-describedby="emailHelp" />
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="salary" className="form-label">Employee Salary</label>
@@ -41,7 +45,7 @@ function Employee() {
                         </form>
                     </div>
                 </div>
-                <div className='row justify-content-center'>
+                <div className='row justify-content-center mt-5'>
                     <div className='col-md-8'>
                         <table className='table table-dark table-bordered table-striped'>
                             <thead>
@@ -55,27 +59,32 @@ function Employee() {
                             <tbody>
                                 {
                                     list.length != 0 ?
-                                    
-                                    list.map((employee,index)=>{
-                                        const {ename,salary,id} = employee;
-                                        return (
-                                            <>
-                                                <tr>
-                                                    <td>{index + 1}</td>
-                                                    <td>{ename}</td>
-                                                    <td>{salary}</td>
-                                                    <td>
-                                                        <button className='btn btn-danger'>Delete</button>
-                                                    </td>
-                                                </tr>
-                                            </>
-                                        )   
-                                    })
 
-                                    : 
-                                    <tr>
-                                        <td colSpan={4} className='text-center'>Data Not Found</td>
-                                    </tr>
+                                        list.map((employee, index) => {
+                                            const { ename, salary, id } = employee;
+                                            return (
+                                                <>
+                                                    <tr>
+                                                        <td>{index + 1}</td>
+                                                        <td>{ename}</td>
+                                                        <td>{salary}</td>
+                                                        <td>
+                                                            <button
+                                                                className='btn btn-danger'
+                                                                onClick={() => handleDelete(id)}
+                                                            >
+                                                                Delete
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </>
+                                            )
+                                        })
+
+                                        :
+                                        <tr>
+                                            <td colSpan={4} className='text-center'>Data Not Found</td>
+                                        </tr>
                                 }
                             </tbody>
                         </table>
