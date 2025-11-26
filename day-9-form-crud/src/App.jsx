@@ -1,10 +1,29 @@
-import React, { useState } from 'react'
+import React, { useState , useEffect  } from 'react'
+
 
 function App() {
 
   const [user, setUser] = useState({});
   const [list, setList] = useState([]);
   const [editId, setEditId] = useState(null);
+  const [error, setError] = useState({});
+  const [record, setRecord] = useState(false);
+
+
+   
+   useEffect(() => {
+    const oldData = JSON.parse(localStorage.getItem("userdata"));
+    if (oldData) {
+      setList(oldData);
+    }
+  }, []);
+
+  // Save automatically to localStorage on every change in list
+  useEffect(() => {
+    localStorage.setItem("userdata", JSON.stringify(list));
+  }, [list]);
+
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUser({ ...user, [name]: value });
@@ -12,6 +31,14 @@ function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    const errors = validate();
+    setError(errors);
+
+    if (Object.keys(errors).length > 0) {
+      return;
+    }
+
     if (editId == null) {
       setList([...list, { ...user, id: Date.now() }]);
     } else {
@@ -25,6 +52,17 @@ function App() {
       setEditId(null);
     }
     setUser({});
+  }
+  
+  const validate = () => {
+    let error = {};
+    if (!user.username) {
+      error.username = "Username is required";
+    }
+    if (!user.email) {
+      error.email = "Email is required";
+    }
+    return error;
   }
 
   const handleDelete = (id) => {
@@ -53,7 +91,9 @@ function App() {
               onChange={handleChange}
               value={user.username || ''}
             />
+            {error.username && <span style={{ color: "red" }}>{error.username}</span>}
           </div>
+
           <div className="mb-3">
             <label htmlFor="email" className="form-label">Email address</label>
             <input
@@ -64,6 +104,7 @@ function App() {
               onChange={handleChange}
               value={user.email || ''}
             />
+            {error.email && <span style={{ color: "red" }}>{error.email}</span>}
           </div>
           <button type="submit" className="btn btn-primary">Add User Data.</button>
         </form>
