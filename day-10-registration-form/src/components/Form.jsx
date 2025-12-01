@@ -1,14 +1,33 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import './Form.css';
 
 function Form() {
 
   const [user, setUser] = useState({});
   const [hobby, setHobby] = useState([]);
+
   const [list, setList] = useState([]);
+  const [originalList, setOriginalList] = useState([]);
+
   const [error, setError] = useState({});
   const [editId, setEditId] = useState(null);
 
   const cities = ["Navsari", "Surat", "Bilimora", "Chikhli", "Vapi"];
+
+  // -------- FIRST TIME LOCALSTORAGE DATA LOAD ----------
+  useEffect(() => {
+    const savedData = localStorage.getItem('userList');
+    if (savedData) {
+      const parsed = JSON.parse(savedData);
+      setList(parsed);
+      setOriginalList(parsed);
+    }
+  }, []);
+
+  // -------- UPDATE LOCALSTORAGE WHEN LIST CHANGES ----------
+  useEffect(() => {
+    localStorage.setItem('userList', JSON.stringify(list));
+  }, [list]);
 
   // ---------------- HANDLE CHANGE ----------------
   const handleChange = (e) => {
@@ -30,6 +49,25 @@ function Form() {
     setUser({ ...user, [name]: value });
   };
 
+  // ---------------- PERFECT SEARCH ----------------
+  const handleSearch = (e) => {
+    let value = e.target.value.toLowerCase();
+
+    // Empty → return original data
+    if (value === "") {
+      setList(originalList);
+      return;
+    }
+
+    const filtered = originalList.filter(item =>
+      item.username.toLowerCase().includes(value) ||
+      item.email.toLowerCase().includes(value) ||
+      item.city.toLowerCase().includes(value)
+    );
+
+    setList(filtered);
+  };
+
   // ---------------- VALIDATION ----------------
   const validate = () => {
     let err = {};
@@ -42,16 +80,11 @@ function Form() {
     else if (user.password.length < 6) err.password = "Minimum 6 characters required.";
 
     if (!user.gender) err.gender = "Please select gender.";
-
     if (hobby.length === 0) err.hobby = "Please select at least 1 hobby.";
-
     if (!user.city) err.city = "Please select your city.";
-
     if (!user.address) err.address = "Address is required.";
 
     setError(err);
-
-    // true = error exists
     return Object.keys(err).length !== 0;
   };
 
@@ -59,9 +92,7 @@ function Form() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (validate()) {
-      return; // Stop form submit if any error
-    }
+    if (validate()) return;
 
     if (editId) {
       let newList = list.map((value) => {
@@ -72,9 +103,12 @@ function Form() {
       });
 
       setList(newList);
+      setOriginalList(newList);
       setEditId(null);
     } else {
-      setList([...list, { ...user, hobby, id: Date.now() }]);
+      const newData = [...list, { ...user, hobby, id: Date.now() }];
+      setList(newData);
+      setOriginalList(newData);
     }
 
     setUser({});
@@ -86,6 +120,7 @@ function Form() {
   const handleDelete = (id) => {
     let newList = list.filter((value) => value.id !== id);
     setList(newList);
+    setOriginalList(newList);
   };
 
   // ---------------- HANDLE EDIT ----------------
@@ -136,7 +171,7 @@ function Form() {
             <div className="mb-3">
               <label className="form-label">Password</label>
               <input
-                type="text"
+                type="password"
                 className='form-control'
                 name='password'
                 onChange={handleChange}
@@ -277,8 +312,10 @@ function Form() {
             </div>
 
             {/* Buttons */}
-            <button type='submit'
-              className={`btn ${editId ? "btn-warning" : "btn-outline-primary"}`}>
+            <button
+              type='submit'
+              className={`btn ${editId ? "btn-warning" : "btn-outline-primary"}`}
+            >
               {editId ? "Update" : "Submit"}
             </button>
 
@@ -299,12 +336,25 @@ function Form() {
         </div>
       </div>
 
+      {/* Search */}
+      <div className="row mt-4">
+        <div className="col-md-4 mb-3">
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Search by name, email, city..."
+            onChange={handleSearch}
+          />
+        </div>
+      </div>
+
       {/* Table */}
       <div className="row mt-4">
         <div className="col-12">
           <div className="table-responsive">
             <table className="table table-dark table-bordered table-striped table-hover caption-top">
               <caption><h2>User Data</h2></caption>
+
               <thead>
                 <tr>
                   <th>Sr. No</th>
@@ -323,6 +373,7 @@ function Form() {
                 {list.length > 0 ? (
                   list.map((value, index) => {
                     const { username, email, password, gender, hobby, city, address, id } = value;
+
                     return (
                       <tr key={id}>
                         <td>{index + 1}</td>
