@@ -1,29 +1,48 @@
 import React from 'react'
 
-function Data() {
+function Data({ list, handleDelete, handleEdit, indexOfFirstItem }) {
   return (
-    <div>
-     
-     <div className="row justify-content-center mt-5">
-      <div className="col-8">
-        <table className='table table-striped '>
-          <thead>
-             <tr>
-              <th>Sr.No</th>
-              <th>UserName</th>
-              <th>Email</th>
-              <th>Action</th>
-             </tr>
-          </thead>
-          <tbody>
+    <div className="container col-6">
+      <table className="table table-bordered text-center">
+        <thead>
+          <tr>
+            <th>Sr</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Action</th>
+          </tr>
+        </thead>
 
-          </tbody>
+        <tbody>
+          {list.map((item, index) => {
+            
+            const globalIndex = indexOfFirstItem + index;
 
-        </table>
-      </div>
+            return (
+              <tr key={globalIndex}>
+                <td>{globalIndex + 1}</td>
+                <td>{item.username}</td>
+                <td>{item.email}</td>
+                <td>
+                  <button
+                    onClick={() => handleDelete(globalIndex)}
+                    className='btn btn-outline-danger mx-1'
+                  >
+                    Delete
+                  </button>
 
-     </div>
-      
+                  <button
+                    onClick={() => handleEdit(globalIndex)}
+                    className='btn btn-outline-warning mx-1'
+                  >
+                    Edit
+                  </button>
+                </td>
+              </tr>
+            )
+          })}
+        </tbody>
+      </table>
     </div>
   )
 }
