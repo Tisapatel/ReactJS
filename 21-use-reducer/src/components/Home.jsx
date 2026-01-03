@@ -7,7 +7,7 @@ const Home = () => {
   return (
     <div className='vh-100 d-flex flex-column bg-primary-subtle justify-content-center align-items-center'>
         <h2 className='text-center'>WellCome To MyPage </h2>
-        <h3 className='text-center'>{user.name}</h3>
+        <h3 className='text-center'>{user.username}</h3>
          <button className='btn btn-outline-dark' onClick={()=> setIsLogin(false)}>Logout</button>
     </div>
   )

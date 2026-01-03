@@ -1,16 +1,16 @@
-import React from 'react'
-import Login from './components/Login'
-import Home from './components/Home'
+import React, { useContext } from 'react';
+import UserContext from './context/UserContext';
+import Home from './components/Home';
+import Login from './components/Login';
 
 const App = () => {
+  const { isLogin } = useContext(UserContext);
+
   return (
-    <div>
+    <>
+      {isLogin ? <Home /> : <Login />}
+    </>
+  );
+};
 
-      <Login />
-      <Home />
-      
-    </div>
-  )
-}
-
-export default App
+export default App;
