@@ -1,1 +1,1 @@
-![FLOW](<Untitled Diagram.drawio.png>)
+![FLOW](./src/assets/flow-diagram.png)
