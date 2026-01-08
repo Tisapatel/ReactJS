@@ -1,80 +1,16 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { addTodo, removeTodos } from "./features/todos/TodoSlice.js";
+import React from 'react'
+import From from './components/From'
+import Table from './components/Table'
 
-function App() {
-  const [text, setText] = useState("");
-  const todos = useSelector((state) => state.todos);
-  const dispatch = useDispatch();
-
-  const handleAdd = () => {
-    if (!text.trim()) return;
-    dispatch(addTodo({ id: Date.now(), text }));
-    setText("");
-  };
-
+const App = () => {
   return (
-    <div className="container py-5">
-      <div className="row justify-content-center">
-        <div className="col-md-6">
+    <>
 
-          {/* Card */}
-          <div className="card shadow-lg border-0 rounded-4">
-            <div className="card-body p-4">
-
-              <h3 className="text-center mb-4 fw-bold">
-                 Todo App
-              </h3>
-
-              {/* Input + Button */}
-              <div className="input-group mb-4">
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Enter your todo..."
-                  value={text}
-                  onChange={(e) => setText(()=> e.target.value)}
-                />
-                <button
-                  className="btn btn-primary"
-                  onClick={handleAdd}
-                >
-                  Add
-                </button>
-              </div>
-
-              {/* Todo List */}
-              <h6 className="text-center mb-4 fw-light">My Todos List</h6>
-              {todos.length === 0 ? (
-                <p className="text-center text-muted">
-                  No todos added yet
-                </p>
-              ) : (
-                <ul className="list-group">
-                  {todos.map((todo) => (
-                    <li
-                      key={todo.id}
-                      className="list-group-item d-flex justify-content-between align-items-center"
-                    >
-                      <span>{todo.text}</span>
-                      <button
-                        className="btn btn-sm btn-danger"
-                        onClick={() => dispatch(removeTodos(todo.id))}
-                      >
-                        Remove
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              )}
-
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-  );
+    <From />
+    <Table />
+      
+    </>
+  )
 }
 
-export default App;
+export default App
