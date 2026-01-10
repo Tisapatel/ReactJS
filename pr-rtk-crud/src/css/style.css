@@ -1,0 +1,219 @@
+/* Dark Theme Styles */
+body {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f0f1e 100%);
+  min-height: 100vh;
+}
+
+.signup-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.signup-card {
+  background: rgba(30, 30, 46, 0.95);
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 40px;
+  backdrop-filter: blur(10px);
+}
+
+.signup-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 10px;
+}
+
+.signup-subtitle {
+  color: #a0aec0;
+  font-size: 0.9rem;
+  margin-bottom: 30px;
+}
+
+.form-label {
+  color: #e2e8f0;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+}
+
+.form-control {
+  background: rgba(15, 15, 30, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  color: #fff;
+  padding: 12px 16px;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  background: rgba(15, 15, 30, 0.9);
+  border-color: #667eea;
+  box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+  color: #fff;
+}
+
+.form-control::placeholder {
+  color: #718096;
+}
+
+.btn-signup {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  border-radius: 10px;
+  padding: 12px 24px;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #fff;
+  width: 100%;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.btn-signup:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+  background: linear-gradient(135deg, #5568d3 0%, #6a3d8f 100%);
+}
+
+.btn-signup:active {
+  transform: translateY(0);
+}
+
+/* ViewUser Styles */
+.viewuser-container {
+  min-height: 100vh;
+  padding: 40px 20px;
+}
+
+.viewuser-card {
+  background: rgba(30, 30, 46, 0.95);
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 30px;
+  backdrop-filter: blur(10px);
+}
+
+.viewuser-title {
+  font-size: 2rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 5px;
+}
+
+.viewuser-subtitle {
+  color: #a0aec0;
+  font-size: 0.85rem;
+  margin-bottom: 25px;
+}
+
+.table-dark-custom {
+  background: transparent;
+  color: #e2e8f0;
+  border: none;
+}
+
+.table-dark-custom thead {
+  background: rgba(15, 15, 30, 0.8);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.table-dark-custom thead th {
+  color: #cbd5e0;
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 16px;
+  border: none;
+}
+
+.table-dark-custom tbody tr {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.2s ease;
+}
+
+.table-dark-custom tbody tr:hover {
+  background: rgba(102, 126, 234, 0.15);
+}
+
+.table-dark-custom tbody tr:hover td {
+  background: #f8f9fa;
+}
+
+.table-dark-custom tbody td {
+  padding: 16px;
+  color: #1a1a2e;
+  background: #ffffff;
+  border: none;
+  vertical-align: middle;
+}
+
+.table-dark-custom tbody td strong {
+  color: #000000;
+  font-weight: 600;
+}
+
+.btn-edit {
+  background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
+  border: none;
+  border-radius: 8px;
+  padding: 8px 20px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: #fff;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(245, 158, 11, 0.3);
+  margin-right: 8px;
+}
+
+.btn-edit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(245, 158, 11, 0.5);
+  background: linear-gradient(135deg, #ea8c00 0%, #e8640f 100%);
+  color: #fff;
+}
+
+.btn-delete {
+  background: linear-gradient(135deg, #ef4444 0%, #ec4899 100%);
+  border: none;
+  border-radius: 8px;
+  padding: 8px 20px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: #fff;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(239, 68, 68, 0.3);
+}
+
+.btn-delete:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(239, 68, 68, 0.5);
+  background: linear-gradient(135deg, #dc2626 0%, #db2777 100%);
+  color: #fff;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.empty-state-text {
+  color: #718096;
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+}
+
+.empty-state-subtext {
+  color: #4a5568;
+  font-size: 0.9rem;
+}
